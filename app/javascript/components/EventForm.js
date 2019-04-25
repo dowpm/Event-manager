@@ -107,7 +107,6 @@ class EventForm extends React.Component {
                 name="event_date"
                 ref={this.dateInput}
                 autoComplete="off"
-                onChange={this.handleInputChange}
               />
             </label>
           </div>
