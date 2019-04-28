@@ -39,7 +39,9 @@ class EventForm extends React.Component {
     if (!isEmptyObject(errors)) {
       this.setState({ errors });
     } else {
-      console.log(event);
+      // console.log(event);
+      const { onSubmit } = this.props;
+      onSubmit(event);
     }
   }
 
@@ -156,6 +158,7 @@ class EventForm extends React.Component {
 
 EventForm.propTypes = {
   event: PropTypes.shape(),
+  onSubmit: PropTypes.func.isRequired,
 };
 
 EventForm.defaultProps = {
