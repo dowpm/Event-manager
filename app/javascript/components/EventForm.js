@@ -5,6 +5,7 @@ import 'pikaday/css/pikaday.css';
 import PropTypes from 'prop-types';
 import { formatDate, isEmptyObject, validateEvent } from '../helpers/helpers';
 import { Link } from 'react-router-dom';
+import EventNotFound from './EventNotFound';
 
 class EventForm extends React.Component {
   constructor(props) {
@@ -91,6 +92,10 @@ class EventForm extends React.Component {
 
   render() {
     const { event } = this.state;
+    const { path } = this.props;
+
+    if (!event.id && path === '/events/:id/edit') return <EventNotFound />;
+
     const cancelURL = event.id ? `/events/${event.id}` : '/events';
     const title = event.id ? `${event.event_date} - ${event.event_type}` : 'New Event';
 
@@ -191,6 +196,7 @@ class EventForm extends React.Component {
 EventForm.propTypes = {
   event: PropTypes.shape(),
   onSubmit: PropTypes.func.isRequired,
+  path: PropTypes.string.isRequired,
 };
 
 EventForm.defaultProps = {
