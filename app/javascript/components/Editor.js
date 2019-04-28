@@ -8,6 +8,8 @@ import Event from './Event';
 import { Switch } from 'react-router-dom';
 import EventForm from './EventForm';
 import { success } from '../helpers/notifications';
+import { handleAjaxError } from '../helpers/helpers';
+
 
 class Editor extends React.Component {
   constructor(props) {
@@ -25,9 +27,7 @@ class Editor extends React.Component {
     axios
       .get('/api/events.json')
       .then(response => this.setState({ events: response.data }))
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch(handleAjaxError);
   }
 
   addEvent(newEvent) {
@@ -43,9 +43,7 @@ class Editor extends React.Component {
         const { history } = this.props;
         history.push(`/events/${savedEvent.id}`);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch(handleAjaxError);
   }
 
   deleteEvent(eventId) {
@@ -63,9 +61,7 @@ class Editor extends React.Component {
             this.setState({ events: events.filter(event => event.id !== eventId) });
           }
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch(handleAjaxError);
     }
   }
 
