@@ -7,6 +7,7 @@ import PropsRoute from './PropsRoute';
 import Event from './Event';
 import { Switch } from 'react-router-dom';
 import EventForm from './EventForm';
+import { success } from '../helpers/notifications';
 
 class Editor extends React.Component {
   constructor(props) {
@@ -33,7 +34,8 @@ class Editor extends React.Component {
     axios
       .post('/api/events.json', newEvent)
       .then((response) => {
-        alert('Event Added!');
+        // alert('Event Added!');
+        success('Event Added!');
         const savedEvent = response.data;
         this.setState(prevState => ({
           events: [...prevState.events, savedEvent],
@@ -53,7 +55,7 @@ class Editor extends React.Component {
         .delete(`/api/events/${eventId}.json`)
         .then((response) => {
           if (response.status === 204) {
-            alert('Event deleted');
+            success('Event deleted');
             const { history } = this.props;
             history.push('/events');
 
